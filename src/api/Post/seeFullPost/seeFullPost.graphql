@@ -1,0 +1,9 @@
+type FullPost {
+  post: Post!
+  comments: [Comment!]!
+  files: [File!]!
+}
+
+type Query {
+  seeFullPost(id: String!): FullPost!
+}

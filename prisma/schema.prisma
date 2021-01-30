@@ -1,0 +1,84 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id          String    @id @default(cuid())
+  avatar      String?
+  username    String    @unique
+  email       String    @unique
+  firstName   String    @default("")
+  lastName    String
+  bio         String
+  following   User[]    @relation("FollowUser", references: [id])
+  follower    User[]    @relation("FollowUser", references: [id])
+  posts       Post[]
+  likes       Like[]
+  comments    Comment[]
+  rooms       Room[]
+  sendMessage Message[] @relation("SendMessage")
+  getMessage  Message[] @relation("GetMessage")
+  loginSecret String?
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  location  String?
+  caption   String
+  user      User      @relation(fields: [userId], references: [id])
+  files     File[]
+  likes     Like[]
+  comments  Comment[]
+  userId    String
+  createdAt DateTime  @default(now())
+}
+
+model Like {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id])
+  userId String
+  postId String
+
+  @@unique(fields: [userId, postId], name: "likeRelation")
+}
+
+model Comment {
+  id     String @id @default(cuid())
+  text   String
+  user   User   @relation(fields: [userId], references: [id])
+  post   Post   @relation(fields: [postId], references: [id])
+  userId String
+  postId String
+}
+
+model File {
+  id     String @id @default(cuid())
+  url    String
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+}
+
+model Room {
+  id           String    @id @default(cuid())
+  participants User[]
+  messages     Message[]
+  createdAt    DateTime  @default(now())
+}
+
+model Message {
+  id       String   @id @default(cuid())
+  from     User     @relation("SendMessage", fields: [fromId], references: [id])
+  fromId   String
+  to       User     @relation("GetMessage", fields: [toId], references: [id])
+  toId     String
+  text     String
+  room     Room     @relation(fields: [roomId], references: [id])
+  roomId   String
+  createAt DateTime @default(now())
+}
