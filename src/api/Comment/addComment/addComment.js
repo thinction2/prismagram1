@@ -20,6 +20,7 @@ export default {
           },
           text,
         },
+        include: { user: true },
       });
       return comment;
     },

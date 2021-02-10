@@ -16,6 +16,12 @@ export default {
           userId: { in: followingUserId },
         },
         orderBy: { createdAt: "desc" },
+        include: {
+          files: true,
+          user: true,
+          comments: true,
+          comments: { include: { user: true } },
+        },
       });
     },
   },

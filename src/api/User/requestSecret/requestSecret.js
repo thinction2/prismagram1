@@ -6,14 +6,14 @@ export default {
     requestSecret: async (_, args) => {
       const { email } = args;
       const loginSecret = generateSecret();
-      console.log(loginSecret);
       try {
         await prisma.user.update({
           where: { email },
           data: { loginSecret },
         });
         return true;
-      } catch {
+      } catch (e) {
+        console.log(e);
         return false;
       }
     },
