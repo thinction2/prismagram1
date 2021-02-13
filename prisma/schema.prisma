@@ -9,7 +9,7 @@ generator client {
 
 model User {
   id          String    @id @default(cuid())
-  avatar      String?
+  avatar      String    @default("https://cdns.iconmonstr.com/wp-content/assets/preview/2017/96/iconmonstr-user-32.png")
   username    String    @unique
   email       String    @unique
   firstName   String    @default("")

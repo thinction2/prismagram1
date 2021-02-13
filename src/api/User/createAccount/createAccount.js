@@ -5,7 +5,7 @@ export default {
     createAccount: async (_, args) => {
       const {
         username,
-        avatar = "",
+        avatar,
         email,
         firstName = "",
         lastName = "",
