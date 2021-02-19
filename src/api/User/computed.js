@@ -5,6 +5,7 @@ export default {
     fullName: (parent) => {
       return `${parent.firstName} ${parent.lastName}`;
     },
+    // postsCount: ({ id }) => prisma.post.count({ where: { user: { id } } }),
     isFollowing: async (parent, _, { request, isAuthenticated }) => {
       isAuthenticated(request);
       const { user } = request;
@@ -26,5 +27,8 @@ export default {
       const { id: parentId } = parent;
       return user.id === parentId;
     },
+    followingCount: (parent) => parent.following.length,
+    followerCount: (parent) => parent.follower.length,
+    postsCount: (parent) => parent.posts.length,
   },
 };

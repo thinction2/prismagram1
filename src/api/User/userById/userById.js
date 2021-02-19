@@ -8,7 +8,7 @@ export default {
         where: { id },
         include: { posts: { select: { id: true } } },
       });
-      console.log(user);
+
       return user;
     },
   },

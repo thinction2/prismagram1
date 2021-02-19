@@ -23,5 +23,9 @@ export default {
       const likes = prisma.like.count({ where: { postId: parent.id } });
       return likes;
     },
+    commentCount: async (parent) => {
+      const comments = prisma.comment.count({ where: { postId: parent.id } });
+      return comments;
+    },
   },
 };

@@ -11,6 +11,12 @@ export default {
             { caption: { startsWith: term } },
           ],
         },
+        include: {
+          files: true,
+          likes: true,
+          comments: true,
+          user: true,
+        },
       });
     },
   },

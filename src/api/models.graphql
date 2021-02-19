@@ -10,8 +10,11 @@ type User {
   isSelf: Boolean!
   bio: String!
   following: [User!]!
+  followingCount: Int!
   follower: [User!]!
+  followerCount: Int!
   posts: [Post!]!
+  postsCount: Int!
   likes: [Like!]!
   comments: [Comment!]!
   rooms: [Room!]!
@@ -28,6 +31,7 @@ type Post {
   files: [File!]!
   likes: [Like!]!
   comments: [Comment!]!
+  commentCount: Int!
   userId: ID!
   likeCount: Int!
   isLiked: Boolean!
@@ -75,9 +79,4 @@ type Message {
   room: Room!
   roomId: String!
   createdAt: String!
-}
-
-type UserProfile {
-  user: User!
-  posts: [Post!]!
 }
